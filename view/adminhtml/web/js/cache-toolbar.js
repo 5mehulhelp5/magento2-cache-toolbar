@@ -1,8 +1,13 @@
 define([], function () {
     'use strict';
 
-    const COOKIE_NAME = 'pronko_fast_admin_promo_dismissed';
+    const COOKIE_NAME  = 'pronko_fast_admin_promo_dismissed';
     const AUTO_DISMISS_MS = 3000;
+    const POLL_LS_KEY = 'pronko_cache_poll_ts';
+
+    const channel = typeof BroadcastChannel !== 'undefined'
+        ? new BroadcastChannel('pronko_cache_status')
+        : null;
 
     const PROMO_MESSAGES = [
         { text: 'Magento admin taking forever? <strong>Fast Admin loads orders in 0.3s.</strong>', utm: 'msg-forever' },
@@ -66,6 +71,7 @@ define([], function () {
         if (icon) icon.innerHTML = isCleared ? '&#x2713;' : '&#9888;';
         if (spinner) spinner.style.display = isLoading ? 'inline-block' : 'none';
         if (actions) actions.style.display = (isCleared || isLoading) ? 'none' : 'flex';
+        if (dismissBtn) dismissBtn.style.display = state === 'outdated' ? 'block' : 'none';
     }
 
     function hide() {
@@ -108,7 +114,19 @@ define([], function () {
             .catch(() => setState('outdated', 'Request failed — try again.'));
     }
 
+    function handleStatusResponse(data) {
+        if (data.outdated) {
+            if (currentState === 'hidden') showOutdated(data.types || []);
+        } else {
+            if (currentState === 'outdated') hide();
+        }
+    }
+
     function checkStatus() {
+        const lastPoll = parseInt(localStorage.getItem(POLL_LS_KEY) || '0', 10);
+        if (Date.now() - lastPoll < config.pollingInterval * 900) return;
+        localStorage.setItem(POLL_LS_KEY, String(Date.now()));
+
         const body = new URLSearchParams({ form_key: config.formKey });
         fetch(config.statusUrl, {
             method: 'POST',
@@ -117,23 +135,34 @@ define([], function () {
         })
             .then(r => r.json())
             .then(data => {
-                if (data.outdated) {
-                    if (currentState === 'hidden') {
-                        showOutdated(data.types || []);
-                    }
-                } else {
-                    if (currentState === 'outdated') {
-                        hide();
-                    }
-                }
+                if (channel) channel.postMessage(data);
+                handleStatusResponse(data);
             })
             .catch(() => {});
     }
 
+    if (channel) {
+        channel.onmessage = (e) => handleStatusResponse(e.data);
+    }
+
     function startPolling() {
-        if (config.pollingInterval <= 0) return;
+        if (config.pollingInterval <= 0 || pollingTimer) return;
         pollingTimer = setInterval(checkStatus, config.pollingInterval * 1000);
     }
+
+    function stopPolling() {
+        clearInterval(pollingTimer);
+        pollingTimer = null;
+    }
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            stopPolling();
+        } else {
+            checkStatus();
+            startPolling();
+        }
+    });
 
     function getCookie(name) {
         const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));

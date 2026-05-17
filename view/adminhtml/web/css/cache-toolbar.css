@@ -9,6 +9,7 @@
     transition: background-color 0.3s ease;
     z-index: 1;
     position: relative;
+    margin-bottom: 8px;
 }
 
 .pronko-cache-toolbar--hidden {
@@ -43,7 +44,7 @@
     align-items: center;
     width: 100%;
     box-sizing: border-box;
-    padding: 6px 16px;
+    padding: 6px 40px 6px 16px;
     gap: 10px;
 }
 
@@ -103,6 +104,10 @@
 }
 
 .pronko-cache-toolbar__dismiss {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
     background: transparent;
     border: none;
     color: inherit;
@@ -111,7 +116,6 @@
     cursor: pointer;
     padding: 2px 6px;
     line-height: 1;
-    flex-shrink: 0;
     transition: color 0.2s ease, opacity 0.2s ease;
 }
 
