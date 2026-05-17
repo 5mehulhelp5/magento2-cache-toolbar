@@ -1,0 +1,56 @@
+<?php
+declare(strict_types=1);
+
+use Magento\Framework\Escaper;
+use Pronko\CacheToolbar\Block\Adminhtml\Toolbar;
+
+/** @var Toolbar $block */
+/** @var Escaper $escaper */
+
+if (!$block->isEnabled() || !$block->canClear()) {
+    return;
+}
+
+$isOutdated     = $block->isOutdated();
+$invalidated    = $block->getInvalidatedTypes();
+$initialState   = $isOutdated ? 'outdated' : 'hidden';
+$initialClass   = $isOutdated ? 'pronko-cache-toolbar--outdated' : 'pronko-cache-toolbar--hidden';
+$typeList       = implode(',', $invalidated);
+$typeLabel      = $isOutdated ? implode(', ', $invalidated) : '';
+$initialMessage = $isOutdated
+    ? (string) __('Cache outdated%1 — clear now?', $typeLabel ? ' (' . $typeLabel . ')' : '')
+    : (string) __('Cache is outdated.');
+?>
+<div class="pronko-cache-toolbar <?= $escaper->escapeHtmlAttr($initialClass) ?>"
+     id="pronko-cache-toolbar"
+     data-state="<?= $escaper->escapeHtmlAttr($initialState) ?>"
+     data-types="<?= $escaper->escapeHtmlAttr($typeList) ?>"
+     data-smart-clear-url="<?= $escaper->escapeHtmlAttr($block->getSmartClearUrl()) ?>"
+     data-full-clear-url="<?= $escaper->escapeHtmlAttr($block->getFullClearUrl()) ?>"
+     data-status-url="<?= $escaper->escapeHtmlAttr($block->getStatusUrl()) ?>"
+     data-polling-interval="<?= $escaper->escapeHtmlAttr((string) $block->getPollingInterval()) ?>"
+     data-shortcut-enabled="<?= $block->isShortcutEnabled() ? '1' : '0' ?>"
+     data-form-key="<?= $escaper->escapeHtmlAttr($block->getFormKey()) ?>">
+    <div class="pronko-cache-toolbar__inner">
+        <span class="pronko-cache-toolbar__icon" id="pronko-cache-icon">&#9888;</span>
+        <span class="pronko-cache-toolbar__message" id="pronko-cache-message">
+            <?= $escaper->escapeHtml($initialMessage) ?>
+        </span>
+        <div class="pronko-cache-toolbar__actions" id="pronko-cache-actions">
+            <button type="button" class="pronko-cache-toolbar__button pronko-cache-toolbar__button--smart" id="pronko-smart-clear">
+                <?= $escaper->escapeHtml(__('Smart Clear')) ?>
+            </button>
+            <button type="button" class="pronko-cache-toolbar__button pronko-cache-toolbar__button--full" id="pronko-full-clear">
+                <?= $escaper->escapeHtml(__('Full Clear')) ?>
+            </button>
+        </div>
+        <button type="button" class="pronko-cache-toolbar__dismiss" id="pronko-cache-dismiss" title="<?= $escaper->escapeHtmlAttr(__('Dismiss')) ?>">&#x2715;</button>
+        <span class="pronko-cache-toolbar__spinner" id="pronko-cache-spinner" aria-hidden="true"></span>
+    </div>
+</div>
+<?php if ($block->isPromoEnabled()): ?>
+<?= $block->getChildHtml('pronko.cache.promo') ?>
+<?php endif; ?>
+<script>
+require(['Pronko_CacheToolbar/js/cache-toolbar']);
+</script>

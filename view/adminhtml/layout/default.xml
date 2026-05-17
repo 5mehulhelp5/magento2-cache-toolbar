@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Pronko_CacheToolbar::css/cache-toolbar.css"/>
+    </head>
+    <body>
+        <referenceContainer name="before.body.end">
+            <block name="pronko.cache.toolbar"
+                   class="Pronko\CacheToolbar\Block\Adminhtml\Toolbar"
+                   template="Pronko_CacheToolbar::toolbar.phtml">
+                <block name="pronko.cache.promo"
+                       class="Magento\Backend\Block\Template"
+                       template="Pronko_CacheToolbar::promo.phtml"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

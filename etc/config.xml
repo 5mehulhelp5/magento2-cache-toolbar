@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <cache_toolbar>
+            <general>
+                <enabled>1</enabled>
+                <shortcut_enabled>1</shortcut_enabled>
+                <polling_interval>30</polling_interval>
+            </general>
+            <smart_clear>
+                <types>config,layout,block_html,compiled_config,eav,full_page,translate</types>
+            </smart_clear>
+            <promo>
+                <enabled>1</enabled>
+            </promo>
+        </cache_toolbar>
+    </default>
+</config>

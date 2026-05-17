@@ -1,0 +1,25 @@
+<?php
+declare(strict_types=1);
+
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+
+/** @var Template $block */
+/** @var Escaper $escaper */
+?>
+<div class="pronko-cache-promo pronko-cache-promo--hidden"
+     id="pronko-cache-promo"
+     data-cookie-name="pronko_fast_admin_promo_dismissed"
+     data-cookie-days="30">
+    <div class="pronko-cache-promo__inner">
+        <span class="pronko-cache-promo__text" id="pronko-promo-text"><?= $escaper->escapeHtml(__('Fast Admin loads orders in 0.3s.')) ?></span>
+        <a class="pronko-cache-promo__cta"
+           id="pronko-promo-cta"
+           href="<?= $escaper->escapeUrl('https://www.pronkoconsulting.com/fast-admin') ?>"
+           target="_blank"
+           rel="noopener noreferrer">
+            <?= $escaper->escapeHtml(__('Learn more')) ?>
+        </a>
+        <button type="button" class="pronko-cache-promo__dismiss" id="pronko-promo-dismiss" title="<?= $escaper->escapeHtmlAttr(__('Dismiss for 30 days')) ?>">&#x2715;</button>
+    </div>
+</div>

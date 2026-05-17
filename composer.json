@@ -1,0 +1,22 @@
+{
+    "name": "pronko/magento2-cache-toolbar",
+    "description": "Magento 2 module that adds a quick cache management toolbar to the admin panel",
+    "version": "1.0.0",
+    "license": "OSL-3.0",
+    "require": {
+        "php": ">=8.2.0",
+        "magento/framework": ">=103.0.0",
+        "magento/module-backend": ">=102.0.0",
+        "magento/module-cache-invalidate": ">=100.0.0",
+        "pronko/module-base": "*"
+    },
+    "type": "magento2-module",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Pronko\\CacheToolbar\\": ""
+        }
+    }
+}
