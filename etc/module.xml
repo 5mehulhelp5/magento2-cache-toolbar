@@ -3,7 +3,6 @@
     <module name="Pronko_CacheToolbar">
         <sequence>
             <module name="Magento_Backend"/>
-            <module name="Pronko_ModuleBase"/>
         </sequence>
     </module>
 </config>

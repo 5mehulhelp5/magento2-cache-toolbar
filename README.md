@@ -117,7 +117,6 @@ The banner is a static HTML element with a link. No analytics, no tracking, no e
 
 - PHP 8.2+
 - Magento 2.4.4+ / MageOS 2.4.6+
-- [`pronko/module-base`](https://github.com/pronkoconsulting/module-base) — provides the Pronko tab in Stores → Configuration
 
 ---
 

@@ -7,8 +7,7 @@
         "php": ">=8.2.0",
         "magento/framework": ">=103.0.0",
         "magento/module-backend": ">=102.0.0",
-        "magento/module-cache-invalidate": ">=100.0.0",
-        "pronko/module-base": "*"
+        "magento/module-cache-invalidate": ">=100.0.0"
     },
     "type": "magento2-module",
     "autoload": {
