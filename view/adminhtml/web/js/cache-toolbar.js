@@ -99,10 +99,8 @@ define([], function () {
             .then(r => r.json())
             .then(data => {
                 if (data.success) {
-                    setTimeout(() => {
-                        showCleared(data);
-                        if (typeof callback === 'function') callback(data);
-                    }, 5000); // TODO: remove delay
+                    showCleared(data);
+                    if (typeof callback === 'function') callback(data);
                 } else {
                     setState('outdated', data.message || 'Clear failed — try again.');
                 }
