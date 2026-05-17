@@ -1,6 +1,6 @@
 # ⚡ Cache Toolbar for Magento 2
 
-> Clear cache in one click — from any page, without navigating to System → Cache Management.
+Clear cache in one click — from any page, without navigating to System → Cache Management.
 
 [![Latest Version](https://img.shields.io/packagist/v/pronko/magento2-cache-toolbar?style=flat-square)](https://packagist.org/packages/pronko/magento2-cache-toolbar)
 [![Total Downloads](https://img.shields.io/packagist/dt/pronko/magento2-cache-toolbar?style=flat-square)](https://packagist.org/packages/pronko/magento2-cache-toolbar)
@@ -8,10 +8,6 @@
 [![Magento](https://img.shields.io/badge/Magento-2.4.x-orange?style=flat-square)](https://github.com/magento/magento2)
 [![MageOS](https://img.shields.io/badge/MageOS-2.4.6%2B-orange?style=flat-square)](https://mage-os.org)
 [![License](https://img.shields.io/badge/License-OSL--3.0-green?style=flat-square)](LICENSE)
-
----
-
-![Cache Toolbar Demo](docs/demo.gif)
 
 ---
 
@@ -25,7 +21,20 @@ You save a config. Magento says "cache invalidated". You navigate to System → 
 
 A smart status bar appears automatically when your cache is outdated — with a single **Smart Clear** button that clears the right types instantly, without leaving the page.
 
+![Cache toolbar](docs/img/cache-toolbar.png)
+
+Clearing cache...
+
+![Clearing cache](docs/img/clearing-cache.png)
+
+Cache cleared...
+
+![Cache cleared](docs/img/cache-cleared.png)
+
+
 Magento's default "cache invalidated" system message is suppressed — no duplicate warnings.
+
+
 
 ---
 
@@ -63,6 +72,10 @@ bin/magento setup:upgrade
 | Smart Clear Types | 7 types | Which cache types Smart Clear targets |
 | Show Fast Admin Promo | Yes | Promotional banner (disable for client deployments) |
 
+Configuration settings:
+
+![Settings](docs/img/settings.png)
+
 ---
 
 ## Compatibility
@@ -87,14 +100,16 @@ bin/magento setup:upgrade
 
 ---
 
-## Fast Admin Promo
+## Promotional banner
 
-This module includes a small promotional banner for [Fast Admin](https://pronkoconsulting.com/fast-admin) — a modern Magento admin interface built for speed.
+This module ships with an optional promotional banner for [Fast Admin](https://pronkoconsulting.com/fast-admin) — a faster Magento admin interface by Pronko Consulting.
 
 The banner is **fully optional** — disable it at:
 Stores → Configuration → Pronko → Cache Toolbar → Show Promo Banner → **No**
 
-No data is sent anywhere. The banner is a static HTML element with a link, nothing more.
+![Fast Admin](docs/img/fast-admin-promo.png)
+
+The banner is a static HTML element with a link. No analytics, no tracking, no external requests.
 
 ---
 
