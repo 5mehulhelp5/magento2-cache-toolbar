@@ -60,7 +60,9 @@ define([], function () {
             message.textContent = text;
         }
 
-        if (icon) icon.innerHTML = isCleared ? '&#x2713;' : '&#9888;';
+        if (icon) icon.innerHTML = isCleared
+            ? '&#x2713;'
+            : '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4"/><path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"/></svg>';
         if (spinner) spinner.style.display = isLoading ? 'inline-block' : 'none';
         if (actions) actions.style.display = (isCleared || isLoading) ? 'none' : 'flex';
         if (dismissBtn) dismissBtn.style.display = state === 'outdated' ? 'block' : 'none';

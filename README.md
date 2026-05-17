@@ -1,6 +1,6 @@
-# Cache Toolbar for Magento 2
+# ⚡ Cache Toolbar for Magento 2
 
-> One-click cache clearing, right where you need it — without leaving the page.
+> Clear cache in one click — from any page, without navigating to System → Cache Management.
 
 [![Latest Version](https://img.shields.io/packagist/v/pronko/magento2-cache-toolbar?style=flat-square)](https://packagist.org/packages/pronko/magento2-cache-toolbar)
 [![Total Downloads](https://img.shields.io/packagist/dt/pronko/magento2-cache-toolbar?style=flat-square)](https://packagist.org/packages/pronko/magento2-cache-toolbar)
@@ -23,7 +23,9 @@ You save a config. Magento says "cache invalidated". You navigate to System → 
 
 ## The solution
 
-A smart status bar appears automatically when your cache is outdated — with a single "Smart Clear" button that clears only the invalidated types instantly, without leaving the page.
+A smart status bar appears automatically when your cache is outdated — with a single **Smart Clear** button that clears the right types instantly, without leaving the page.
+
+Magento's default "cache invalidated" system message is suppressed — no duplicate warnings.
 
 ---
 
@@ -32,9 +34,10 @@ A smart status bar appears automatically when your cache is outdated — with a 
 - **Smart Clear** — clears only the cache types that are actually invalidated, from your configured list
 - **Full Clear** — clears all cache types and flushes the cache pool when you need a clean slate
 - **Zero-delay detection** — cache status is checked server-side on every page load, bar renders immediately with no AJAX flicker
+- **Suppresses Magento's default warning** — no more duplicate "Cache Types are invalidated" messages
 - **Keyboard shortcut** — `Ctrl+Shift+C` triggers Smart Clear from anywhere in the admin
 - **Auto-dismiss** — success message disappears after 3 seconds, stays out of your way
-- **Configurable** — choose which cache types "Smart Clear" includes via Stores → Configuration
+- **Configurable** — choose which cache types Smart Clear targets via Stores → Configuration
 - **ACL-aware** — toolbar only renders for admin users with cache clear permission
 
 ---
@@ -58,33 +61,18 @@ bin/magento setup:upgrade
 | Enable Toolbar | Yes | Show/hide the toolbar |
 | Keyboard Shortcut | Yes | Enable `Ctrl+Shift+C` |
 | Smart Clear Types | 7 types | Which cache types Smart Clear targets |
-| Show Fast Admin Promo | Yes | Promotional banner for Fast Admin (disable for client deployments) |
+| Show Fast Admin Promo | Yes | Promotional banner (disable for client deployments) |
 
 ---
 
-## How it works
+## Compatibility
 
-Cache status is checked **server-side on every page load** via `TypeListInterface`.
-
-```
-Page loads
-  └─ PHP checks TypeListInterface::getInvalidated()
-      ├─ Cache outdated → amber bar + Smart Clear / Full Clear buttons
-      └─ Cache clean    → bar hidden
-
-User clicks Smart Clear
-  └─ AJAX POST → Controller
-      └─ intersect(configured types, invalidated types)
-          └─ cleanType() for each
-              └─ "Cache cleared · 2 types · 0.1s" → auto-dismiss after 3s
-
-User clicks Full Clear
-  └─ AJAX POST → Controller
-      └─ cleanType() for all types + cache pool flush
-          └─ "Cache cleared · 18 types · 0.4s" → auto-dismiss after 3s
-```
-
-The bar state on the next page load always reflects reality — no stale UI possible.
+| Platform | Version |
+|---|---|
+| Magento Open Source | 2.4.4 — 2.4.x |
+| Adobe Commerce | 2.4.4 — 2.4.x |
+| MageOS | 2.4.6+ |
+| PHP | 8.2, 8.3, 8.4, 8.5 |
 
 ---
 
@@ -99,22 +87,28 @@ The bar state on the next page load always reflects reality — no stale UI poss
 
 ---
 
+## Fast Admin Promo
+
+This module includes a small promotional banner for [Fast Admin](https://pronkoconsulting.com/fast-admin) — a modern Magento admin interface built for speed.
+
+The banner is **fully optional** — disable it at:
+Stores → Configuration → Pronko → Cache Toolbar → Show Promo Banner → **No**
+
+No data is sent anywhere. The banner is a static HTML element with a link, nothing more.
+
+---
+
 ## Requirements
 
 - PHP 8.2+
 - Magento 2.4.4+ / MageOS 2.4.6+
-- [`pronko/module-base`](https://github.com/pronkoconsulting/module-base)
+- [`pronko/module-base`](https://github.com/pronkoconsulting/module-base) — provides the Pronko tab in Stores → Configuration
 
 ---
 
 ## Contributing
 
-Pull requests are welcome. For major changes, please open an issue first.
-
-```bash
-git clone https://github.com/pronkoconsulting/magento2-cache-toolbar.git
-composer install
-```
+Pull requests are welcome. For major changes, please open an issue first to discuss what you'd like to change.
 
 ---
 

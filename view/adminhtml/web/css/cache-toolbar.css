@@ -17,14 +17,14 @@
 }
 
 .pronko-cache-toolbar--outdated {
-    background: #FFFBEB;
-    border-bottom: 1px solid #FDE68A;
-    border-left: 3px solid #F59E0B;
-    color: #78350F;
+    background: #FEF9C3;
+    border-bottom: 1px solid #FDE047;
+    border-left: 3px solid #EAB308;
+    color: #713F12;
 }
 
 .pronko-cache-toolbar--outdated .pronko-cache-toolbar__icon {
-    color: #D97706;
+    color: #CA8A04;
 }
 
 .pronko-cache-toolbar--loading {
@@ -44,17 +44,23 @@
     align-items: center;
     width: 100%;
     box-sizing: border-box;
-    padding: 6px 40px 6px 16px;
+    min-height: 44px;
+    padding: 0 40px 0 16px;
     gap: 10px;
 }
 
 .pronko-cache-toolbar__icon {
+    display: flex;
+    align-items: center;
     font-size: 15px;
     flex-shrink: 0;
 }
 
 .pronko-cache-toolbar__message {
+    display: flex;
+    align-items: center;
     flex: 1;
+    gap: 8px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -68,10 +74,13 @@
 }
 
 .pronko-cache-toolbar__button--smart {
-    background: #92400E;
+    background: #1e293b;
     color: #fff;
     border: none;
-    padding: 6px 14px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
     font-weight: 600;
     font-size: 13px;
     border-radius: 4px;
@@ -81,26 +90,28 @@
 }
 
 .pronko-cache-toolbar__button--smart:hover {
-    background: #78350F;
+    background: #0f172a;
     color: #fff;
 }
 
 .pronko-cache-toolbar__button--full {
     background: transparent;
-    color: #92400E;
-    border: 1px solid #D97706;
-    padding: 6px 14px;
+    color: #1e293b;
+    border: 1px solid #1e293b;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
     font-size: 13px;
     border-radius: 4px;
     cursor: pointer;
     white-space: nowrap;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    transition: background-color 0.2s ease;
 }
 
 .pronko-cache-toolbar__button--full:hover {
-    background: #FEF3C7;
-    color: #78350F;
-    border-color: #92400E;
+    background: rgba(30, 41, 59, 0.08);
+    color: #1e293b;
 }
 
 .pronko-cache-toolbar__dismiss {
@@ -124,12 +135,12 @@
 }
 
 .pronko-cache-toolbar--outdated .pronko-cache-toolbar__dismiss {
-    color: #D97706;
+    color: #CA8A04;
     opacity: 1;
 }
 
 .pronko-cache-toolbar--outdated .pronko-cache-toolbar__dismiss:hover {
-    color: #92400E;
+    color: #713F12;
 }
 
 .pronko-cache-toolbar__spinner {
