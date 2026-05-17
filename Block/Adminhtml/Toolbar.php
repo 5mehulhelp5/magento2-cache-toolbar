@@ -41,11 +41,6 @@ class Toolbar extends Template
         return $this->config->isShortcutEnabled();
     }
 
-    public function getPollingInterval(): int
-    {
-        return $this->config->getPollingInterval();
-    }
-
     public function isPromoEnabled(): bool
     {
         return $this->config->isPromoEnabled();
@@ -59,11 +54,6 @@ class Toolbar extends Template
     public function getFullClearUrl(): string
     {
         return $this->getUrl('pronko/cache/fullclear');
-    }
-
-    public function getStatusUrl(): string
-    {
-        return $this->getUrl('pronko/cache/status');
     }
 
     public function canClear(): bool

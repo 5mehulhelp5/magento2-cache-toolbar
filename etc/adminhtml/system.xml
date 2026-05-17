@@ -16,11 +16,6 @@
                     <comment>Ctrl+Shift+C triggers Smart Clear from any admin page.</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="polling_interval" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
-                    <label>Status Polling Interval (seconds)</label>
-                    <comment>Set to 0 to disable polling.</comment>
-                    <validate>validate-digits validate-zero-or-greater</validate>
-                </field>
             </group>
             <group id="smart_clear" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
                 <label>Smart Clear</label>

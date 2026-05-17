@@ -27,8 +27,6 @@ $initialMessage = $isOutdated
      data-types="<?= $escaper->escapeHtmlAttr($typeList) ?>"
      data-smart-clear-url="<?= $escaper->escapeHtmlAttr($block->getSmartClearUrl()) ?>"
      data-full-clear-url="<?= $escaper->escapeHtmlAttr($block->getFullClearUrl()) ?>"
-     data-status-url="<?= $escaper->escapeHtmlAttr($block->getStatusUrl()) ?>"
-     data-polling-interval="<?= $escaper->escapeHtmlAttr((string) $block->getPollingInterval()) ?>"
      data-shortcut-enabled="<?= $block->isShortcutEnabled() ? '1' : '0' ?>"
      data-form-key="<?= $escaper->escapeHtmlAttr($block->getFormKey()) ?>">
     <div class="pronko-cache-toolbar__inner">

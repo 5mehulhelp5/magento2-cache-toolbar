@@ -5,7 +5,6 @@
             <general>
                 <enabled>1</enabled>
                 <shortcut_enabled>1</shortcut_enabled>
-                <polling_interval>30</polling_interval>
             </general>
             <smart_clear>
                 <types>config,layout,block_html,compiled_config,eav,full_page,translate</types>

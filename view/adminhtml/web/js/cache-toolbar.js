@@ -1,13 +1,8 @@
 define([], function () {
     'use strict';
 
-    const COOKIE_NAME  = 'pronko_fast_admin_promo_dismissed';
+    const COOKIE_NAME     = 'pronko_fast_admin_promo_dismissed';
     const AUTO_DISMISS_MS = 3000;
-    const POLL_LS_KEY = 'pronko_cache_poll_ts';
-
-    const channel = typeof BroadcastChannel !== 'undefined'
-        ? new BroadcastChannel('pronko_cache_status')
-        : null;
 
     const PROMO_MESSAGES = [
         { text: 'Magento admin taking forever? <strong>Fast Admin loads orders in 0.3s.</strong>', utm: 'msg-forever' },
@@ -22,12 +17,10 @@ define([], function () {
     if (!toolbar) return {};
 
     const config = {
-        smartClearUrl:    toolbar.dataset.smartClearUrl,
-        fullClearUrl:     toolbar.dataset.fullClearUrl,
-        statusUrl:        toolbar.dataset.statusUrl,
-        pollingInterval:  parseInt(toolbar.dataset.pollingInterval, 10) || 0,
-        shortcutEnabled:  toolbar.dataset.shortcutEnabled === '1',
-        formKey:          toolbar.dataset.formKey,
+        smartClearUrl:   toolbar.dataset.smartClearUrl,
+        fullClearUrl:    toolbar.dataset.fullClearUrl,
+        shortcutEnabled: toolbar.dataset.shortcutEnabled === '1',
+        formKey:         toolbar.dataset.formKey,
     };
 
     const message    = document.getElementById('pronko-cache-message');
@@ -43,7 +36,6 @@ define([], function () {
     const promoDismissBtn = document.getElementById('pronko-promo-dismiss');
 
     let autoDismissTimer = null;
-    let pollingTimer = null;
     let smartClearHappened = false;
     let currentState = toolbar.dataset.state || 'hidden';
 
@@ -114,56 +106,6 @@ define([], function () {
             .catch(() => setState('outdated', 'Request failed — try again.'));
     }
 
-    function handleStatusResponse(data) {
-        if (data.outdated) {
-            if (currentState === 'hidden') showOutdated(data.types || []);
-        } else {
-            if (currentState === 'outdated') hide();
-        }
-    }
-
-    function checkStatus() {
-        const lastPoll = parseInt(localStorage.getItem(POLL_LS_KEY) || '0', 10);
-        if (Date.now() - lastPoll < config.pollingInterval * 900) return;
-        localStorage.setItem(POLL_LS_KEY, String(Date.now()));
-
-        const body = new URLSearchParams({ form_key: config.formKey });
-        fetch(config.statusUrl, {
-            method: 'POST',
-            headers: { 'X-Requested-With': 'XMLHttpRequest' },
-            body,
-        })
-            .then(r => r.json())
-            .then(data => {
-                if (channel) channel.postMessage(data);
-                handleStatusResponse(data);
-            })
-            .catch(() => {});
-    }
-
-    if (channel) {
-        channel.onmessage = (e) => handleStatusResponse(e.data);
-    }
-
-    function startPolling() {
-        if (config.pollingInterval <= 0 || pollingTimer) return;
-        pollingTimer = setInterval(checkStatus, config.pollingInterval * 1000);
-    }
-
-    function stopPolling() {
-        clearInterval(pollingTimer);
-        pollingTimer = null;
-    }
-
-    document.addEventListener('visibilitychange', () => {
-        if (document.hidden) {
-            stopPolling();
-        } else {
-            checkStatus();
-            startPolling();
-        }
-    });
-
     function getCookie(name) {
         const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
         return match ? decodeURIComponent(match[1]) : null;
@@ -209,14 +151,6 @@ define([], function () {
             }
         });
     }
-
-    const header = document.querySelector('.page-header') || document.querySelector('header');
-    if (header && header.parentNode) {
-        header.parentNode.insertBefore(toolbar, header.nextSibling);
-        if (promo) header.parentNode.insertBefore(promo, toolbar.nextSibling);
-    }
-
-    startPolling();
 
     return {};
 });

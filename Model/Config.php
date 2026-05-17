@@ -9,7 +9,6 @@ class Config
 {
     private const XML_PATH_ENABLED     = 'cache_toolbar/general/enabled';
     private const XML_PATH_SHORTCUT    = 'cache_toolbar/general/shortcut_enabled';
-    private const XML_PATH_POLLING     = 'cache_toolbar/general/polling_interval';
     private const XML_PATH_SMART_TYPES = 'cache_toolbar/smart_clear/types';
     private const XML_PATH_PROMO       = 'cache_toolbar/promo/enabled';
 
@@ -25,11 +24,6 @@ class Config
     public function isShortcutEnabled(): bool
     {
         return $this->scopeConfig->isSetFlag(self::XML_PATH_SHORTCUT);
-    }
-
-    public function getPollingInterval(): int
-    {
-        return (int) $this->scopeConfig->getValue(self::XML_PATH_POLLING);
     }
 
     public function getSmartClearTypes(): array
