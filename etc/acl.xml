@@ -3,14 +3,12 @@
     <acl>
         <resources>
             <resource id="Magento_Backend::admin">
-                <resource id="Magento_Backend::stores">
-                    <resource id="Magento_Backend::stores_settings">
-                        <resource id="Magento_Config::config">
-                            <resource id="Pronko_CacheToolbar::config" title="Cache Toolbar Configuration"/>
-                        </resource>
+                <resource id="Pronko_CacheToolbar::pronko" title="Pronko Consulting" sortOrder="100">
+                    <resource id="Pronko_CacheToolbar::cache_toolbar" title="Cache Toolbar" sortOrder="10">
+                        <resource id="Pronko_CacheToolbar::cache_clear" title="Clear Cache via Cache Toolbar" sortOrder="10"/>
+                        <resource id="Pronko_CacheToolbar::config" title="Cache Toolbar Configuration" sortOrder="20"/>
                     </resource>
                 </resource>
-                <resource id="Pronko_CacheToolbar::cache_clear" title="Clear Cache via Cache Toolbar"/>
             </resource>
         </resources>
     </acl>
