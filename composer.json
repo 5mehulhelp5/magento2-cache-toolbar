@@ -3,6 +3,12 @@
     "description": "Magento 2 module that adds a quick cache management toolbar to the admin panel",
     "version": "1.0.0",
     "license": "OSL-3.0",
+    "authors": [
+        {
+            "name": "Pronko Consulting",
+            "homepage": "https://www.pronkoconsulting.com"
+        }
+    ],
     "require": {
         "php": ">=8.2.0",
         "magento/framework": ">=103.0.0",
