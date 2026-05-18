@@ -4,7 +4,7 @@
         <tab id="pronko" translate="label" sortOrder="400">
             <label>Pronko Consulting</label>
         </tab>
-        <section id="cache_toolbar" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+        <section id="pronko_cache_toolbar" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
             <label>Cache Toolbar</label>
             <tab>pronko</tab>
             <resource>Pronko_CacheToolbar::config</resource>

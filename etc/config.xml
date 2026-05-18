@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
-        <cache_toolbar>
+        <pronko_cache_toolbar>
             <general>
                 <enabled>1</enabled>
                 <shortcut_enabled>1</shortcut_enabled>
@@ -12,6 +12,6 @@
             <promo>
                 <enabled>1</enabled>
             </promo>
-        </cache_toolbar>
+        </pronko_cache_toolbar>
     </default>
 </config>
