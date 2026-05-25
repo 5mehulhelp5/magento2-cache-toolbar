@@ -6,9 +6,15 @@
 
 - ViewModel `Pronko\CacheToolbar\ViewModel\Toolbar` replaces the custom Block class
 - Human-readable cache type labels in toolbar message ("Configuration" instead of "config")
-- Error handling in SmartClear and FullClear controllers with PSR logger
+- Error handling in SmartClear and FullClear controllers with PSR logger writing to `var/log/pronko.log`
 - Request deduplication in JS — rapid clicks no longer fire multiple simultaneous requests
 - `aria-live="polite"` and `role="status"` on toolbar message for screen reader support
+- `pronko/magento2-core` dependency — shared admin tab, parent ACL resource, and logger
+
+### Changed
+
+- ACL resources restructured under `Pronko_Core::pronko` parent resource owned by `Pronko_Core`
+- Pronko Consulting admin tab definition moved to `Pronko_Core`
 
 ### Removed
 
