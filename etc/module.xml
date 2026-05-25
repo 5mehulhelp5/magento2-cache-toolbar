@@ -3,6 +3,7 @@
     <module name="Pronko_CacheToolbar">
         <sequence>
             <module name="Magento_Backend"/>
+            <module name="Magento_AdminNotification"/>
         </sequence>
     </module>
 </config>
