@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.3 — 2026-05-27
+
+### Added
+
+- i18n/en_US.csv with all translatable strings
+
+### Changed
+
+- Toolbar message updated from "Cache outdated" to "Cache invalidated" to align with Magento terminology
+
 ## 1.0.2 — 2026-05-26
 
 ### Fixed

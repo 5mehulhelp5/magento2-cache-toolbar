@@ -74,7 +74,7 @@ define([], function () {
 
     function showOutdated(types) {
         const typeList = types.length ? ` (${types.join(', ')})` : '';
-        setState('outdated', `Cache outdated${typeList} — clear now?`);
+        setState('outdated', `Cache invalidated${typeList} — clear now?`);
     }
 
     function showCleared(data) {
