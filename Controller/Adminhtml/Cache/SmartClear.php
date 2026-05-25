@@ -9,12 +9,13 @@ namespace Pronko\CacheToolbar\Controller\Adminhtml\Cache;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
+use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\App\Cache\TypeListInterface;
 use Magento\Framework\Controller\Result\Json;
 use Magento\Framework\Controller\Result\JsonFactory;
 use Pronko\CacheToolbar\Model\Config;
 
-class SmartClear extends Action
+class SmartClear extends Action implements HttpPostActionInterface
 {
     public const ADMIN_RESOURCE = 'Pronko_CacheToolbar::cache_clear';
 

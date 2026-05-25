@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.2 — 2026-05-26
+
+### Fixed
+
+- PHP version constraint corrected to `>=8.1.0` to match Magento 2.4.4+ support
+- Added `magento/module-admin-notification` as an explicit Composer dependency
+- Added `Magento_AdminNotification` to module load sequence
+- Controllers now implement `HttpPostActionInterface`
+
 ## 1.0.1 — 2026-05-25
 
 ### Fixed
