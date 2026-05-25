@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.1 — 2026-05-25
+
+### Fixed
+
+- ACL resources restructured under a `Pronko Consulting` parent group
+
 ## 1.0.0 — 2026-05-17
 
 ### Added
