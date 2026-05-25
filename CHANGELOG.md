@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.1.0 — 2026-05-28
+
+### Added
+
+- ViewModel `Pronko\CacheToolbar\ViewModel\Toolbar` replaces the custom Block class
+- Human-readable cache type labels in toolbar message ("Configuration" instead of "config")
+- Error handling in SmartClear and FullClear controllers with PSR logger
+- Request deduplication in JS — rapid clicks no longer fire multiple simultaneous requests
+- `aria-live="polite"` and `role="status"` on toolbar message for screen reader support
+
+### Removed
+
+- `Block/Adminhtml/Toolbar.php` — replaced by ViewModel (breaking change)
+
 ## 1.0.3 — 2026-05-27
 
 ### Added

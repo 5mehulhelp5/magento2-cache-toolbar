@@ -14,6 +14,8 @@ use Magento\Framework\App\Cache\TypeListInterface;
 use Magento\Framework\Controller\Result\Json;
 use Magento\Framework\Controller\Result\JsonFactory;
 use Pronko\CacheToolbar\Model\Config;
+use Psr\Log\LoggerInterface;
+use Throwable;
 
 class SmartClear extends Action implements HttpPostActionInterface
 {
@@ -24,6 +26,7 @@ class SmartClear extends Action implements HttpPostActionInterface
         private readonly JsonFactory $resultJsonFactory,
         private readonly Config $config,
         private readonly TypeListInterface $typeList,
+        private readonly LoggerInterface $logger,
     ) {
         parent::__construct($context);
     }
@@ -35,8 +38,16 @@ class SmartClear extends Action implements HttpPostActionInterface
         $configured  = $this->config->getSmartClearTypes();
         $types       = array_values(array_intersect($configured, $invalidated));
 
-        foreach ($types as $typeCode) {
-            $this->typeList->cleanType($typeCode);
+        try {
+            foreach ($types as $typeCode) {
+                $this->typeList->cleanType($typeCode);
+            }
+        } catch (Throwable $e) {
+            $this->logger->error('CacheToolbar SmartClear failed: ' . $e->getMessage());
+            return $this->resultJsonFactory->create()->setData([
+                'success' => false,
+                'message' => (string) __('Cache clear failed. Please try again.'),
+            ]);
         }
 
         $elapsed = round(microtime(true) - $start, 1);

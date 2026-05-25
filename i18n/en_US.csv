@@ -3,6 +3,7 @@
 "Smart Clear","Smart Clear"
 "Full Clear","Full Clear"
 "Dismiss","Dismiss"
+"Cache clear failed. Please try again.","Cache clear failed. Please try again."
 "Cache cleared (%d types in %ss)","Cache cleared (%d types in %ss)"
 "All cache cleared (%d types in %ss)","All cache cleared (%d types in %ss)"
 "Fast Admin loads orders in 0.3s.","Fast Admin loads orders in 0.3s."
