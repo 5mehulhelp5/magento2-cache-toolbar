@@ -18,8 +18,8 @@ $initialClass   = $isOutdated ? 'pronko-cache-toolbar--outdated' : 'pronko-cache
 $typeList       = implode(',', $invalidated);
 $typeLabel      = $isOutdated ? implode(', ', $invalidated) : '';
 $initialMessage = $isOutdated
-    ? (string) __('Cache outdated%1 — clear now?', $typeLabel ? ' (' . $typeLabel . ')' : '')
-    : (string) __('Cache is outdated.');
+    ? (string) __('Cache invalidated%1 — clear now?', $typeLabel ? ' (' . $typeLabel . ')' : '')
+    : (string) __('Cache is invalidated.');
 ?>
 <div class="pronko-cache-toolbar <?= $escaper->escapeHtmlAttr($initialClass) ?>"
      id="pronko-cache-toolbar"
