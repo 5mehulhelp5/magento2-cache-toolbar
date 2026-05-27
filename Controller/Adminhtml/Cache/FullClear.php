@@ -14,6 +14,8 @@ use Magento\Framework\App\Cache\Frontend\Pool;
 use Magento\Framework\App\Cache\TypeListInterface;
 use Magento\Framework\Controller\Result\Json;
 use Magento\Framework\Controller\Result\JsonFactory;
+use Psr\Log\LoggerInterface;
+use Throwable;
 
 class FullClear extends Action implements HttpPostActionInterface
 {
@@ -23,7 +25,8 @@ class FullClear extends Action implements HttpPostActionInterface
         Context $context,
         private readonly JsonFactory $resultJsonFactory,
         private readonly TypeListInterface $typeList,
-        private readonly Pool $cacheFrontendPool
+        private readonly Pool $cacheFrontendPool,
+        private readonly LoggerInterface $logger,
     ) {
         parent::__construct($context);
     }
@@ -33,12 +36,20 @@ class FullClear extends Action implements HttpPostActionInterface
         $start = microtime(true);
         $types = array_keys($this->typeList->getTypes());
 
-        foreach ($types as $typeCode) {
-            $this->typeList->cleanType($typeCode);
-        }
+        try {
+            foreach ($types as $typeCode) {
+                $this->typeList->cleanType($typeCode);
+            }
 
-        foreach ($this->cacheFrontendPool as $cacheFrontend) {
-            $cacheFrontend->getBackend()->clean();
+            foreach ($this->cacheFrontendPool as $cacheFrontend) {
+                $cacheFrontend->getBackend()->clean();
+            }
+        } catch (Throwable $e) {
+            $this->logger->error('CacheToolbar FullClear failed: ' . $e->getMessage());
+            return $this->resultJsonFactory->create()->setData([
+                'success' => false,
+                'message' => (string) __('Cache clear failed. Please try again.'),
+            ]);
         }
 
         $elapsed = round(microtime(true) - $start, 1);

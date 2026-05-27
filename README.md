@@ -4,7 +4,7 @@ Clear cache in one click — from any page, without navigating to System → Cac
 
 [![Latest Version](https://img.shields.io/packagist/v/pronko/magento2-cache-toolbar?style=flat-square)](https://packagist.org/packages/pronko/magento2-cache-toolbar)
 [![Total Downloads](https://img.shields.io/packagist/dt/pronko/magento2-cache-toolbar?style=flat-square)](https://packagist.org/packages/pronko/magento2-cache-toolbar)
-[![PHP](https://img.shields.io/badge/PHP-8.2%2B-blue?style=flat-square)](https://www.php.net)
+[![PHP](https://img.shields.io/badge/PHP-8.1%2B-blue?style=flat-square)](https://www.php.net)
 [![Magento](https://img.shields.io/badge/Magento-2.4.x-orange?style=flat-square)](https://github.com/magento/magento2)
 [![MageOS](https://img.shields.io/badge/MageOS-2.4.6%2B-orange?style=flat-square)](https://mage-os.org)
 [![License](https://img.shields.io/badge/License-OSL--3.0-green?style=flat-square)](LICENSE)
@@ -48,6 +48,7 @@ Magento's default "cache invalidated" system message is suppressed — no duplic
 - **Auto-dismiss** — success message disappears after 3 seconds, stays out of your way
 - **Configurable** — choose which cache types Smart Clear targets via Stores → Configuration
 - **ACL-aware** — toolbar only renders for admin users with cache clear permission
+- **Accessible** — toolbar message uses `aria-live` and `role="status"` for screen reader support
 
 ---
 
@@ -55,7 +56,7 @@ Magento's default "cache invalidated" system message is suppressed — no duplic
 
 ```bash
 composer require pronko/magento2-cache-toolbar
-bin/magento module:enable Pronko_CacheToolbar
+bin/magento module:enable Pronko_Core Pronko_CacheToolbar
 bin/magento setup:upgrade
 ```
 
@@ -85,7 +86,7 @@ Configuration settings:
 | Magento Open Source | 2.4.4 — 2.4.x |
 | Adobe Commerce | 2.4.4 — 2.4.x |
 | MageOS | 2.4.6+ |
-| PHP | 8.2, 8.3, 8.4, 8.5 |
+| PHP | 8.1, 8.2, 8.3, 8.4, 8.5 |
 
 ---
 
@@ -115,8 +116,9 @@ The banner is a static HTML element with a link. No analytics, no tracking, no e
 
 ## Requirements
 
-- PHP 8.2+
+- PHP 8.1+
 - Magento 2.4.4+ / MageOS 2.4.6+
+- `pronko/magento2-core` ^1.0 (installed automatically by Composer)
 
 ---
 

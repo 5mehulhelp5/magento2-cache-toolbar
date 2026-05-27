@@ -21,6 +21,7 @@ define([], function () {
         fullClearUrl:    toolbar.dataset.fullClearUrl,
         shortcutEnabled: toolbar.dataset.shortcutEnabled === '1',
         formKey:         toolbar.dataset.formKey,
+        typeLabels:      JSON.parse(toolbar.dataset.typeLabels || '{}'),
     };
 
     const message    = document.getElementById('pronko-cache-message');
@@ -38,6 +39,7 @@ define([], function () {
     let autoDismissTimer = null;
     let smartClearHappened = false;
     let currentState = toolbar.dataset.state || 'hidden';
+    let inFlight = false;
 
     // state: 'hidden' | 'outdated' | 'loading' | 'cleared'
     function setState(state, text) {
@@ -73,7 +75,8 @@ define([], function () {
     }
 
     function showOutdated(types) {
-        const typeList = types.length ? ` (${types.join(', ')})` : '';
+        const labels = types.map(t => config.typeLabels[t] || t);
+        const typeList = labels.length ? ` (${labels.join(', ')})` : '';
         setState('outdated', `Cache invalidated${typeList} — clear now?`);
     }
 
@@ -89,6 +92,8 @@ define([], function () {
     }
 
     function postClear(url, callback) {
+        if (inFlight) return;
+        inFlight = true;
         setState('loading', 'Clearing cache…');
         const body = new URLSearchParams({ form_key: config.formKey });
         fetch(url, {
@@ -105,7 +110,8 @@ define([], function () {
                     setState('outdated', data.message || 'Clear failed — try again.');
                 }
             })
-            .catch(() => setState('outdated', 'Request failed — try again.'));
+            .catch(() => setState('outdated', 'Request failed — try again.'))
+            .finally(() => { inFlight = false; });
     }
 
     function getCookie(name) {

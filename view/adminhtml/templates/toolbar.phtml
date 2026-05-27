@@ -2,21 +2,27 @@
 declare(strict_types=1);
 
 use Magento\Framework\Escaper;
-use Pronko\CacheToolbar\Block\Adminhtml\Toolbar;
+use Pronko\CacheToolbar\ViewModel\Toolbar;
 
-/** @var Toolbar $block */
+/** @var \Magento\Backend\Block\Template $block */
+/** @var Toolbar $viewModel */
 /** @var Escaper $escaper */
 
-if (!$block->isEnabled() || !$block->canClear()) {
+$viewModel = $block->getData('view_model');
+
+if (!$viewModel->isEnabled() || !$viewModel->canClear()) {
     return;
 }
 
-$isOutdated     = $block->isOutdated();
-$invalidated    = $block->getInvalidatedTypes();
+$isOutdated     = $viewModel->isOutdated();
+$invalidated    = $viewModel->getInvalidatedTypes();
+$typeLabels     = $viewModel->getTypeLabels();
 $initialState   = $isOutdated ? 'outdated' : 'hidden';
 $initialClass   = $isOutdated ? 'pronko-cache-toolbar--outdated' : 'pronko-cache-toolbar--hidden';
 $typeList       = implode(',', $invalidated);
-$typeLabel      = $isOutdated ? implode(', ', $invalidated) : '';
+$typeLabel      = $isOutdated
+    ? implode(', ', array_map(fn($code) => $typeLabels[$code] ?? $code, $invalidated))
+    : '';
 $initialMessage = $isOutdated
     ? (string) __('Cache invalidated%1 — clear now?', $typeLabel ? ' (' . $typeLabel . ')' : '')
     : (string) __('Cache is invalidated.');
@@ -25,9 +31,10 @@ $initialMessage = $isOutdated
      id="pronko-cache-toolbar"
      data-state="<?= $escaper->escapeHtmlAttr($initialState) ?>"
      data-types="<?= $escaper->escapeHtmlAttr($typeList) ?>"
-     data-smart-clear-url="<?= $escaper->escapeHtmlAttr($block->getSmartClearUrl()) ?>"
-     data-full-clear-url="<?= $escaper->escapeHtmlAttr($block->getFullClearUrl()) ?>"
-     data-shortcut-enabled="<?= $block->isShortcutEnabled() ? '1' : '0' ?>"
+     data-type-labels="<?= $escaper->escapeHtmlAttr(json_encode($typeLabels)) ?>"
+     data-smart-clear-url="<?= $escaper->escapeHtmlAttr($viewModel->getSmartClearUrl()) ?>"
+     data-full-clear-url="<?= $escaper->escapeHtmlAttr($viewModel->getFullClearUrl()) ?>"
+     data-shortcut-enabled="<?= $viewModel->isShortcutEnabled() ? '1' : '0' ?>"
      data-form-key="<?= $escaper->escapeHtmlAttr($block->getFormKey()) ?>">
     <div class="pronko-cache-toolbar__inner">
         <span class="pronko-cache-toolbar__icon" id="pronko-cache-icon" aria-hidden="true">
@@ -37,7 +44,7 @@ $initialMessage = $isOutdated
                 <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"/>
             </svg>
         </span>
-        <span class="pronko-cache-toolbar__message" id="pronko-cache-message">
+        <span class="pronko-cache-toolbar__message" id="pronko-cache-message" role="status" aria-live="polite">
             <?= $escaper->escapeHtml($initialMessage) ?>
         </span>
         <div class="pronko-cache-toolbar__actions" id="pronko-cache-actions">
@@ -52,7 +59,7 @@ $initialMessage = $isOutdated
         <span class="pronko-cache-toolbar__spinner" id="pronko-cache-spinner" aria-hidden="true"></span>
     </div>
 </div>
-<?php if ($block->isPromoEnabled()): ?>
+<?php if ($viewModel->isPromoEnabled()): ?>
 <?= $block->getChildHtml('pronko.cache.promo') ?>
 <?php endif; ?>
 <script>

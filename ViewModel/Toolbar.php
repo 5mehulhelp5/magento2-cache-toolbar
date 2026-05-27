@@ -5,25 +5,22 @@
  */
 declare(strict_types=1);
 
-namespace Pronko\CacheToolbar\Block\Adminhtml;
+namespace Pronko\CacheToolbar\ViewModel;
 
-use Magento\Backend\Block\Template;
-use Magento\Backend\Block\Template\Context;
+use Magento\Backend\Model\UrlInterface;
 use Magento\Framework\App\Cache\TypeListInterface;
+use Magento\Framework\AuthorizationInterface;
+use Magento\Framework\View\Element\Block\ArgumentInterface;
 use Pronko\CacheToolbar\Model\Config;
 
-class Toolbar extends Template
+class Toolbar implements ArgumentInterface
 {
-    protected $_template = 'Pronko_CacheToolbar::toolbar.phtml';
-
     public function __construct(
-        Context $context,
         private readonly Config $config,
         private readonly TypeListInterface $cacheTypeList,
-        array $data = []
-    ) {
-        parent::__construct($context, $data);
-    }
+        private readonly UrlInterface $url,
+        private readonly AuthorizationInterface $authorization
+    ) {}
 
     public function getInvalidatedTypes(): array
     {
@@ -52,16 +49,21 @@ class Toolbar extends Template
 
     public function getSmartClearUrl(): string
     {
-        return $this->getUrl('pronko/cache/smartclear');
+        return $this->url->getUrl('pronko/cache/smartclear');
     }
 
     public function getFullClearUrl(): string
     {
-        return $this->getUrl('pronko/cache/fullclear');
+        return $this->url->getUrl('pronko/cache/fullclear');
     }
 
     public function canClear(): bool
     {
-        return $this->_authorization->isAllowed('Pronko_CacheToolbar::cache_clear');
+        return $this->authorization->isAllowed('Pronko_CacheToolbar::cache_clear');
+    }
+
+    public function getTypeLabels(): array
+    {
+        return $this->cacheTypeList->getTypeLabels();
     }
 }

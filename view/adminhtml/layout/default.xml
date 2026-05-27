@@ -6,9 +6,12 @@
     <body>
         <referenceContainer name="global.notices">
             <block name="pronko.cache.toolbar"
-                   class="Pronko\CacheToolbar\Block\Adminhtml\Toolbar"
+                   class="Magento\Backend\Block\Template"
                    template="Pronko_CacheToolbar::toolbar.phtml"
                    after="-">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Pronko\CacheToolbar\ViewModel\Toolbar</argument>
+                </arguments>
                 <block name="pronko.cache.promo"
                        class="Magento\Backend\Block\Template"
                        template="Pronko_CacheToolbar::promo.phtml"/>

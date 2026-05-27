@@ -4,4 +4,14 @@
         <plugin name="pronko_cache_toolbar_suppress_notification"
                 type="Pronko\CacheToolbar\Plugin\SuppressCacheOutdatedNotification"/>
     </type>
+    <type name="Pronko\CacheToolbar\Controller\Adminhtml\Cache\SmartClear">
+        <arguments>
+            <argument name="logger" xsi:type="object">Pronko\Core\Logger</argument>
+        </arguments>
+    </type>
+    <type name="Pronko\CacheToolbar\Controller\Adminhtml\Cache\FullClear">
+        <arguments>
+            <argument name="logger" xsi:type="object">Pronko\Core\Logger</argument>
+        </arguments>
+    </type>
 </config>
