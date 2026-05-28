@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.2 — 2026-05-29
+
+### Fixed
+
+- `SuppressCacheOutdatedNotification` plugin now falls back to Magento's native cache invalidation message for admins who lack the `Pronko_CacheToolbar::cache_clear` ACL permission — previously those admins received no notification at all
+
 ## 1.1.1 — 2026-05-29
 
 ### Changed
