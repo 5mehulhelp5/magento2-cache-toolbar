@@ -18,10 +18,10 @@ class SuppressCacheOutdatedNotification
 
     public function afterIsDisplayed(CacheOutdated $subject, bool $result): bool
     {
-        if (!$result) {
-            return false;
+        if (!$this->config->isEnabled()) {
+            return $result;
         }
 
-        return !$this->config->isEnabled();
+        return false;
     }
 }

@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.1 — 2026-05-29
+
+### Changed
+
+- ACL: added `translate="title"` to all resource nodes for i18n readiness
+- ACL: shortened role-tree leaf titles (`Clear Cache via Cache Toolbar` → `Clear Cache`, `Cache Toolbar Configuration` → `Configuration`) — no permission or id changes
+
 ## 1.1.0 — 2026-05-28
 
 ### Added
