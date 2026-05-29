@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.3 — 2026-05-29
+
+### Changed
+
+- `SmartClear` and `FullClear` controllers dispatch `pronko_cache_toolbar_clear_after` event after a successful cache clear, carrying `action`, `cache_types`, `duration_ms`, and `origin=toolbar`
+
 ## 1.1.2 — 2026-05-29
 
 ### Fixed

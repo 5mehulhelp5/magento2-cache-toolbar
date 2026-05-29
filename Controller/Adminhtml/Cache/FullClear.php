@@ -14,6 +14,7 @@ use Magento\Framework\App\Cache\Frontend\Pool;
 use Magento\Framework\App\Cache\TypeListInterface;
 use Magento\Framework\Controller\Result\Json;
 use Magento\Framework\Controller\Result\JsonFactory;
+use Magento\Framework\Event\ManagerInterface as EventManagerInterface;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
@@ -27,6 +28,7 @@ class FullClear extends Action implements HttpPostActionInterface
         private readonly TypeListInterface $typeList,
         private readonly Pool $cacheFrontendPool,
         private readonly LoggerInterface $logger,
+        private readonly EventManagerInterface $eventManager,
     ) {
         parent::__construct($context);
     }
@@ -53,6 +55,13 @@ class FullClear extends Action implements HttpPostActionInterface
         }
 
         $elapsed = round(microtime(true) - $start, 1);
+
+        $this->eventManager->dispatch('pronko_cache_toolbar_clear_after', [
+            'action'      => 'full_clear',
+            'cache_types' => $types,
+            'duration_ms' => (int) round($elapsed * 1000),
+            'origin'      => 'toolbar',
+        ]);
 
         return $this->resultJsonFactory->create()->setData([
             'success' => true,
