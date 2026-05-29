@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.5 — 2026-05-29
+
+### Changed
+
+- Added MageOS screenshot to README
+
 ## 1.1.4 — 2026-05-29
 
 ### Changed

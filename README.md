@@ -23,6 +23,10 @@ A smart status bar appears automatically when your cache is outdated — with a 
 
 ![Cache Toolbar](docs/img/cache-toolbar-v2.png)
 
+MageOS:
+
+![Cache Toolbar MageOS](docs/img/cache-toolbar-mageos-v2.png)
+
 Clearing cache...
 
 ![Clearing cache](docs/img/clearing-cache.png)
