@@ -1,4 +1,4 @@
-# ⚡ Cache Toolbar for Magento 2
+# ⚡ Cache Toolbar for Magento 2 and MageOS
 
 Clear cache in one click — from any page, without navigating to System → Cache Management.
 
@@ -21,7 +21,7 @@ You save a config. Magento says "cache invalidated". You navigate to System → 
 
 A smart status bar appears automatically when your cache is outdated — with a single **Smart Clear** button that clears the right types instantly, without leaving the page.
 
-![Cache toolbar](docs/img/cache-toolbar.png)
+![Cache Toolbar](docs/img/cache-toolbar-v2.png)
 
 Clearing cache...
 
@@ -31,10 +31,7 @@ Cache cleared...
 
 ![Cache cleared](docs/img/cache-cleared.png)
 
-
 Magento's default "cache invalidated" system message is suppressed — no duplicate warnings.
-
-
 
 ---
 
