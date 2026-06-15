@@ -19,7 +19,6 @@ $invalidated    = $viewModel->getInvalidatedTypes();
 $typeLabels     = $viewModel->getTypeLabels();
 $initialState   = $isOutdated ? 'outdated' : 'hidden';
 $initialClass   = $isOutdated ? 'pronko-cache-toolbar--outdated' : 'pronko-cache-toolbar--hidden';
-$typeList       = implode(',', $invalidated);
 $typeLabel      = $isOutdated
     ? implode(', ', array_map(fn($code) => $typeLabels[$code] ?? $code, $invalidated))
     : '';
@@ -30,8 +29,6 @@ $initialMessage = $isOutdated
 <div class="pronko-cache-toolbar <?= $escaper->escapeHtmlAttr($initialClass) ?>"
      id="pronko-cache-toolbar"
      data-state="<?= $escaper->escapeHtmlAttr($initialState) ?>"
-     data-types="<?= $escaper->escapeHtmlAttr($typeList) ?>"
-     data-type-labels="<?= $escaper->escapeHtmlAttr(json_encode($typeLabels)) ?>"
      data-smart-clear-url="<?= $escaper->escapeHtmlAttr($viewModel->getSmartClearUrl()) ?>"
      data-full-clear-url="<?= $escaper->escapeHtmlAttr($viewModel->getFullClearUrl()) ?>"
      data-shortcut-enabled="<?= $viewModel->isShortcutEnabled() ? '1' : '0' ?>"

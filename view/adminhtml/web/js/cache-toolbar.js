@@ -1,4 +1,4 @@
-define([], function () {
+define(['mage/translate'], function ($t) {
     'use strict';
 
     const COOKIE_NAME     = 'pronko_fast_admin_promo_dismissed';
@@ -21,7 +21,6 @@ define([], function () {
         fullClearUrl:    toolbar.dataset.fullClearUrl,
         shortcutEnabled: toolbar.dataset.shortcutEnabled === '1',
         formKey:         toolbar.dataset.formKey,
-        typeLabels:      JSON.parse(toolbar.dataset.typeLabels || '{}'),
     };
 
     const message    = document.getElementById('pronko-cache-message');
@@ -36,14 +35,15 @@ define([], function () {
     const promoCta       = document.getElementById('pronko-promo-cta');
     const promoDismissBtn = document.getElementById('pronko-promo-dismiss');
 
+    // Captured once from the server-rendered markup so the SVG lives in one place.
+    const defaultIcon = icon ? icon.innerHTML : '';
+
     let autoDismissTimer = null;
     let smartClearHappened = false;
-    let currentState = toolbar.dataset.state || 'hidden';
     let inFlight = false;
 
     // state: 'hidden' | 'outdated' | 'loading' | 'cleared'
     function setState(state, text) {
-        currentState = state;
         toolbar.dataset.state = state;
         toolbar.classList.remove(
             'pronko-cache-toolbar--hidden',
@@ -62,9 +62,7 @@ define([], function () {
             message.textContent = text;
         }
 
-        if (icon) icon.innerHTML = isCleared
-            ? '&#x2713;'
-            : '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4"/><path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"/></svg>';
+        if (icon) icon.innerHTML = isCleared ? '&#x2713;' : defaultIcon;
         if (spinner) spinner.style.display = isLoading ? 'inline-block' : 'none';
         if (actions) actions.style.display = (isCleared || isLoading) ? 'none' : 'flex';
         if (dismissBtn) dismissBtn.style.display = state === 'outdated' ? 'block' : 'none';
@@ -74,14 +72,8 @@ define([], function () {
         setState('hidden');
     }
 
-    function showOutdated(types) {
-        const labels = types.map(t => config.typeLabels[t] || t);
-        const typeList = labels.length ? ` (${labels.join(', ')})` : '';
-        setState('outdated', `Cache invalidated${typeList} — clear now?`);
-    }
-
     function showCleared(data) {
-        setState('cleared', `Cache cleared · ${data.types} types · ${data.time}`);
+        setState('cleared', data.message);
         if (autoDismissTimer) clearTimeout(autoDismissTimer);
         autoDismissTimer = setTimeout(hide, AUTO_DISMISS_MS);
 
@@ -94,7 +86,7 @@ define([], function () {
     function postClear(url, callback) {
         if (inFlight) return;
         inFlight = true;
-        setState('loading', 'Clearing cache…');
+        setState('loading', $t('Clearing cache…'));
         const body = new URLSearchParams({ form_key: config.formKey });
         fetch(url, {
             method: 'POST',
@@ -107,10 +99,10 @@ define([], function () {
                     showCleared(data);
                     if (typeof callback === 'function') callback(data);
                 } else {
-                    setState('outdated', data.message || 'Clear failed — try again.');
+                    setState('outdated', data.message || $t('Clear failed — try again.'));
                 }
             })
-            .catch(() => setState('outdated', 'Request failed — try again.'))
+            .catch(() => setState('outdated', $t('Request failed — try again.')))
             .finally(() => { inFlight = false; });
     }
 

@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.1.6 — 2026-06-15
+
+### Added
+
+- Unit tests for the toolbar's core classes
+
+### Changed
+
+- Toolbar messages are now translatable
+- Lighter page footprint — trimmed unused data from the toolbar markup
+
 ## 1.1.5 — 2026-05-29
 
 ### Changed
